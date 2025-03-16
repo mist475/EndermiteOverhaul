@@ -1,0 +1,21 @@
+{
+	"modListVersion": 2,
+	"modList": [{
+		"modid": "${modId}",
+		"name": "${modName}",
+		"description": "Make endermites more interesting and more useful",
+		"version": "${modVersion}",
+		"mcversion": "${minecraftVersion}",
+		"url": "https://github.com/mist475/EndermiteOverhaul",
+		"updateUrl": "",
+		"authorList": ["mist475","cr1maus"],
+		"credits": "mist475 for code & idea, cr1maus for assets & idea refinement, Ganymedes01/Roadhog360/mojang for endermite backport",
+		"logoFile": "",
+		"screenshots": [],
+		"parent": "",
+		"requiredMods": [],
+		"dependencies": [],
+		"dependants": [],
+		"useDependencyInformation": false
+	}]
+}

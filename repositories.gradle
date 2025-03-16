@@ -1,0 +1,22 @@
+// Add any additional repositories for your dependencies here.
+
+repositories {
+    exclusiveContent {
+        // hack for using github releases as a source without having to use jitpack
+        forRepository {
+            ivy {
+                name = 'Et Futurum Requiem releases'
+                url = 'https://github.com/Roadhog360/Et-Futurum-Requiem/releases/download/'
+                patternLayout {
+                    artifact '[revision]/etfuturum-[revision](-[classifier])(.[ext])'
+                }
+                metadataSources {
+                    artifact()
+                }
+            }
+        }
+        filter {
+            includeGroup('Et-Futurum-Requiem')
+        }
+    }
+}
