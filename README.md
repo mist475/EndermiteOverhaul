@@ -12,7 +12,8 @@ Requires [Et Futurum Requiem](https://github.com/Roadhog360/Et-Futurum-Requiem) 
 Keep in mind Et Futurum Requiem might have dependencies on its own, so make sure to check this on the Et Futurum Requiem page.
 
 ## Features
-- Endermite eggs spawn in patches underground, in the nether and in the end. TODO: picture
+- Endermite eggs spawn in patches underground, in the nether and in the end.
+![2025-03-16_12 10 00](https://github.com/user-attachments/assets/7fff9786-542c-4ec7-a94a-04d0aff2eacb)
 - These eggs hatch after a while, or after they're trampled. Revealing a variable amount of endermites
 - Endermen are drawn towards these eggs and will protect them
 - Endermen will aggro on anything that destroys the eggs
