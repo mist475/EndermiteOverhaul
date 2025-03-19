@@ -4,6 +4,11 @@ import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import cpw.mods.fml.common.network.NetworkRegistry;
+import cpw.mods.fml.common.network.simpleimpl.SimpleNetworkWrapper;
+import cpw.mods.fml.relauncher.Side;
+import mist475.endermite_overhaul.rendering.BlockBreakParticleHandler;
+import mist475.endermite_overhaul.rendering.BlockBreakParticleMessage;
 
 @Mod(
     modid = EndermiteOverhaul.MODID,
@@ -13,6 +18,7 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 public class EndermiteOverhaul {
 
     public static final String MODID = "endermite_overhaul";
+    public static SimpleNetworkWrapper networkWrapper;
 
     @SidedProxy(
         clientSide = "mist475.endermite_overhaul.ClientProxy",
@@ -22,6 +28,9 @@ public class EndermiteOverhaul {
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) {
         proxy.preInit(event);
+        networkWrapper = NetworkRegistry.INSTANCE.newSimpleChannel(EndermiteOverhaul.MODID);
+        networkWrapper
+            .registerMessage(BlockBreakParticleHandler.class, BlockBreakParticleMessage.class, 0, Side.CLIENT);
     }
 
     @Mod.EventHandler

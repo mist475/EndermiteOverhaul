@@ -5,12 +5,16 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
+import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.monster.EntityEnderman;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
 
 import org.apache.commons.lang3.tuple.Triple;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class EndermiteOverhaulUtils {
 
@@ -90,5 +94,11 @@ public class EndermiteOverhaulUtils {
         }
         Collections.shuffle(list, random);
         return list;
+    }
+
+    @SideOnly(Side.CLIENT)
+    public static void blockDestroyParticles(World world, int x, int y, int z) {
+        var block = ModBlocks.ENDERMITE_EGG.get();
+        world.playAuxSFX(2001, x, y, z, Block.getIdFromBlock(block) + (world.getBlockMetadata(x, y, z) << 12));
     }
 }

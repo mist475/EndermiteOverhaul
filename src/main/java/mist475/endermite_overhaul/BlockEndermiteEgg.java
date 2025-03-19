@@ -23,10 +23,12 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.event.ForgeEventFactory;
 
+import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.etfuturum.client.sound.ModSounds;
 import ganymedes01.etfuturum.entities.EntityEndermite;
+import mist475.endermite_overhaul.rendering.BlockBreakParticleMessage;
 
 public class BlockEndermiteEgg extends Block implements ITileEntityProvider {
 
@@ -252,10 +254,11 @@ public class BlockEndermiteEgg extends Block implements ITileEntityProvider {
     /**
      * Plays the destroy sound <br>
      * Sets the block to air<br>
-     * TODO: play block destroy particles particles (this doesn't happen when the block is destroyed by a projectile or
-     * when stepped on etc)
      */
     private void destroyBlockEffects(World world, int x, int y, int z) {
+        EndermiteOverhaul.networkWrapper.sendToAllAround(
+            new BlockBreakParticleMessage(x, y, z),
+            new NetworkRegistry.TargetPoint(world.provider.dimensionId, x, y, z, 64));
         world.setBlockToAir(x, y, z);
         world.playSoundEffect(
             x,
