@@ -116,7 +116,7 @@ public class BlockEndermiteEgg extends Block implements ITileEntityProvider {
     @Override
     public void onFallenUpon(World world, int x, int y, int z, Entity entity, float fallDistance) {
         if (!world.isRemote && !entity.isSneaking() && fallDistance > 0.5F) {
-            EndermiteOverhaulUtils.aggroEndermenOnAttacker(world, x, y, z, 32, entity);
+            EndermiteOverhaulUtils.aggroEndermenOnAttacker(world, x, y, z, Config.endermenAggroRange, entity);
             if (!(entity instanceof EntityPlayer) && !world.getGameRules()
                 .getGameRuleBooleanValue("mobGriefing")) {
                 return;
@@ -128,12 +128,15 @@ public class BlockEndermiteEgg extends Block implements ITileEntityProvider {
     @Override
     public TileEntity createNewTileEntity(World world, int meta) {
         // every egg will hatch between 10 minutes and 30 minutes after creation
-        return new TileEntityEndermiteEgg(rand.nextInt(24000) + 12000, 0);
+        return new TileEntityEndermiteEgg(
+            rand.nextInt(Config.maxEndermiteEggHatchTime - Config.minEndermiteEggHatchTime)
+                + Config.minEndermiteEggHatchTime,
+            0);
     }
 
     @Override
     public boolean removedByPlayer(World world, EntityPlayer player, int x, int y, int z, boolean willHarvest) {
-        EndermiteOverhaulUtils.aggroEndermenOnAttacker(world, x, y, z, 32, player);
+        EndermiteOverhaulUtils.aggroEndermenOnAttacker(world, x, y, z, Config.endermenAggroRange, player);
         return super.removedByPlayer(world, player, x, y, z, willHarvest);
     }
 
@@ -240,12 +243,19 @@ public class BlockEndermiteEgg extends Block implements ITileEntityProvider {
             if (entity instanceof EntityThrowable entityThrowable) {
                 destroyBlockEffects(world, x, y, z);
                 if (entityThrowable.getThrower() != null) {
-                    EndermiteOverhaulUtils.aggroEndermenOnAttacker(world, x, y, z, 32, entityThrowable.getThrower());
+                    EndermiteOverhaulUtils.aggroEndermenOnAttacker(
+                        world,
+                        x,
+                        y,
+                        z,
+                        Config.endermenAggroRange,
+                        entityThrowable.getThrower());
                 }
             } else if (entity instanceof EntityArrow entityArrow) {
                 destroyBlockEffects(world, x, y, z);
                 if (entityArrow.shootingEntity != null) {
-                    EndermiteOverhaulUtils.aggroEndermenOnAttacker(world, x, y, z, 32, entityArrow.shootingEntity);
+                    EndermiteOverhaulUtils
+                        .aggroEndermenOnAttacker(world, x, y, z, Config.endermenAggroRange, entityArrow.shootingEntity);
                 }
             }
         }

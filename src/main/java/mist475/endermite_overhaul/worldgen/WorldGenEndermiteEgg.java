@@ -30,11 +30,11 @@ public class WorldGenEndermiteEgg extends WorldGenerator {
          * Blacklist mode: only generate if not in list
          */
         if ((Config.endermiteEggGenerationCustomDimensionIds.contains(world.provider.dimensionId)
-            == Config.endermiteEggGenerationMode) && random.nextInt(10) == 0
+            == Config.endermiteEggGenerationMode) && random.nextInt(Config.endermiteEggSpawnChance) == 0
             && !(world.getBiomeGenForCoords(chunkCentreX, chunkCentreZ) instanceof BiomeGenMushroomIsland)) {
             int randomX = chunkCentreX - random.nextInt(8) + random.nextInt(8);
             int randomZ = chunkCentreZ - random.nextInt(8) + random.nextInt(8);
-            for (int y = 0; y < 128; ++y) {
+            for (int y = Config.endermiteEggLowerGenerationBound; y < Config.endermiteEggUpperGenerationBound; ++y) {
                 if (world.isAirBlock(randomX, y, randomZ)) {
                     var belowY = y - 1;
                     var below = world.getBlock(randomX, belowY, randomZ);
@@ -58,7 +58,7 @@ public class WorldGenEndermiteEgg extends WorldGenerator {
      * Once a spot has been found, try to spawn between 3 and 1 extra eggs within 6 blocks of the egg
      */
     private void spawnAdditionalEggs(World world, Random random, int x, int y, int z) {
-        var amountToTry = random.nextInt(2) + 1;
+        var amountToTry = random.nextInt(Config.maxEndermiteEggGroupSize - 1) + 1;
         var positions = EndermiteOverhaulUtils.getRandomPositions(x, y, z, 6, 4, 6, random);
         for (var pos : positions) {
             if (amountToTry == 0) {

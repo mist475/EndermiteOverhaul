@@ -8,9 +8,9 @@ import net.minecraft.world.World;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
-import org.spongepowered.asm.mixin.Unique;
 
 import ganymedes01.etfuturum.entities.EntityEndermite;
+import mist475.endermite_overhaul.Config;
 import mist475.endermite_overhaul.EndermiteOverhaulUtils;
 import mist475.endermite_overhaul.ModBlocks;
 
@@ -50,7 +50,8 @@ public abstract class MixinEntityEndermite extends EntityMob {
     @Override
     public boolean attackEntityFrom(DamageSource source, float amount) {
         // aggro endermen on target
-        endermiteOverhaul$aggroEndermenOnAttacker(32, source);
+        EndermiteOverhaulUtils
+            .aggroEndermenOnAttacker(worldObj, posX, posY, posZ, Config.endermenAggroRange, source.getEntity());
         return super.attackEntityFrom(source, amount);
     }
 
@@ -64,10 +65,5 @@ public abstract class MixinEntityEndermite extends EntityMob {
             return Item.getItemFromBlock(ModBlocks.ENDERMITE_EGG.get());
         }
         return null;
-    }
-
-    @Unique
-    private void endermiteOverhaul$aggroEndermenOnAttacker(int range, DamageSource source) {
-        EndermiteOverhaulUtils.aggroEndermenOnAttacker(worldObj, posX, posY, posZ, range, source.getEntity());
     }
 }

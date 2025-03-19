@@ -20,6 +20,13 @@ public class Config {
     public static boolean endermiteEggGenerationMode;
     public static TIntList endermiteEggGenerationCustomDimensionIds;
     public static boolean removeVanillaEndermenSpawn;
+    public static int endermiteEggSpawnChance;
+    public static int endermiteEggUpperGenerationBound;
+    public static int endermiteEggLowerGenerationBound;
+    public static int maxEndermiteEggGroupSize;
+    public static int maxEndermiteEggHatchTime;
+    public static int minEndermiteEggHatchTime;
+    public static int endermenAggroRange;
 
     public static void synchronizeConfiguration(File configFile) {
         var configuration = new Configuration(configFile);
@@ -52,6 +59,57 @@ public class Config {
             "main",
             false,
             "Set to true to make endermite eggs the only way to obtain endermen (unless other mods add spawns). This does not effect endermen spawning in the end.");
+
+        endermiteEggSpawnChance = configuration.getInt(
+            "endermiteEggSpawnChance",
+            "main",
+            10,
+            1,
+            100,
+            "How often a group of endermite eggs occur ( one in n, so higher = rarer)");
+
+        endermiteEggUpperGenerationBound = configuration.getInt(
+            "endermiteEggUpperGenerationBound",
+            "main",
+            128,
+            Integer.MIN_VALUE,
+            Integer.MAX_VALUE,
+            "Max y height for endermite eggs to spawn");
+
+        endermiteEggLowerGenerationBound = configuration.getInt(
+            "endermiteEggLowerGenerationBound",
+            "main",
+            0,
+            Integer.MIN_VALUE,
+            Integer.MAX_VALUE,
+            "Min y height for endermite eggs to spawn");
+
+        maxEndermiteEggGroupSize = configuration
+            .getInt("maxEndermiteEggGroupSize", "main", 3, 1, 256, "Max group size for endermite eggs");
+
+        maxEndermiteEggHatchTime = configuration.getInt(
+            "maxEndermiteEggHatchTime",
+            "main",
+            36000,
+            0,
+            Integer.MAX_VALUE,
+            "Max time in ticks for endermites to hatch");
+
+        minEndermiteEggHatchTime = configuration.getInt(
+            "minEndermiteEggHatchTime",
+            "main",
+            12000,
+            0,
+            Integer.MAX_VALUE,
+            "Max time in ticks for endermites to hatch");
+
+        endermenAggroRange = configuration.getInt(
+            "endermenAggroRange",
+            "main",
+            32,
+            0,
+            Integer.MAX_VALUE,
+            "Radius where endermen aggro on you for hitting an endermite or destroying an egg");
 
         if (configuration.hasChanged()) {
             configuration.save();
