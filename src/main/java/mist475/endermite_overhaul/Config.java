@@ -57,7 +57,7 @@ public class Config {
         removeVanillaEndermenSpawn = configuration.getBoolean(
             "removeVanillaEndermenSpawn",
             "main",
-            false,
+            true,
             "Set to true to make endermite eggs the only way to obtain endermen (unless other mods add spawns). This does not effect endermen spawning in the end.");
 
         endermiteEggSpawnChance = configuration.getInt(

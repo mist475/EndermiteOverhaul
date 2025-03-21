@@ -16,6 +16,7 @@ Keep in mind Et Futurum Requiem might have dependencies on its own, so make sure
 ![2025-03-16_12 10 00](https://github.com/user-attachments/assets/7fff9786-542c-4ec7-a94a-04d0aff2eacb)
 - These eggs hatch after a while, or after they're trampled. Revealing a variable amount of endermites
 - Endermen are drawn towards these eggs and will protect them
+- Endermite eggs are the only source of endermen in the world (configurable)
 - Endermen will aggro on anything that destroys the eggs
 - Endermites have a chance to drop an egg on death (the chance increases up to 100% if the endermite is older than 10 minutes)
 
