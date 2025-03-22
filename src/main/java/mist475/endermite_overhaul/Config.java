@@ -27,6 +27,7 @@ public class Config {
     public static int maxEndermiteEggHatchTime;
     public static int minEndermiteEggHatchTime;
     public static int endermenAggroRange;
+    public static boolean endermiteEggAchievement;
 
     public static void synchronizeConfiguration(File configFile) {
         var configuration = new Configuration(configFile);
@@ -110,6 +111,12 @@ public class Config {
             0,
             Integer.MAX_VALUE,
             "Radius where endermen aggro on you for hitting an endermite or destroying an egg");
+
+        endermiteEggAchievement = configuration.getBoolean(
+            "endermiteEggAchievement",
+            "main",
+            true,
+            "Adds an achievement to locate an endermen spawned by an endermite egg between the \"Into Fire\" and the \"The End?\" Achievements");
 
         if (configuration.hasChanged()) {
             configuration.save();

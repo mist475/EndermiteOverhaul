@@ -3,6 +3,8 @@ package mist475.endermite_overhaul;
 import java.util.stream.Collectors;
 
 import net.minecraft.entity.monster.EntityEnderman;
+import net.minecraft.stats.Achievement;
+import net.minecraft.stats.AchievementList;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.common.MinecraftForge;
 
@@ -33,6 +35,16 @@ public class CommonProxy {
             BiomeGenBase.hell.spawnableMonsterList = BiomeGenBase.hell.spawnableMonsterList.stream()
                 .filter(entry -> entry.entityClass != EntityEnderman.class)
                 .collect(Collectors.toList());
+        }
+        if (Config.removeVanillaEndermenSpawn && Config.endermiteEggAchievement) {
+            ServerEventHandler.INSTANCE.endermiteEggAchievement = new Achievement(
+                "achievement.endermiteEgg",
+                "endermiteEgg",
+                1,
+                10,
+                ModBlocks.ENDERMITE_EGG.get(),
+                AchievementList.blazeRod).registerStat();
+            AchievementList.theEnd.parentAchievement = ServerEventHandler.INSTANCE.endermiteEggAchievement;
         }
     }
 }
