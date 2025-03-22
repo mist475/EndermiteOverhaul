@@ -19,6 +19,7 @@ Keep in mind Et Futurum Requiem might have dependencies on its own, so make sure
 - Endermite eggs are the only source of endermen in the world (configurable)
 - Endermen will aggro on anything that destroys the eggs
 - Endermites have a chance to drop an egg on death (the chance increases up to 100% if the endermite is older than 10 minutes)
+- An achievement is added for killing an endermen spawned near an endermite egg
 
 ## Changes from vanilla endermite mechanics
 
@@ -29,6 +30,7 @@ Keep in mind Et Futurum Requiem might have dependencies on its own, so make sure
 - Enable endermite egg generation (if this is disabled you can only get eggs by killing endermites obtained the regular way)
 - Use a whitelist or a blacklist to configure where endermite eggs should spawn
 - Disable vanilla endermen spawns, forcing the player to find endermite eggs in order to go to the End
+- Add an achievement for killing an endermen spawned near an endermite egg between "Into Fire" and "The End?"
 
 # Contributing
 
