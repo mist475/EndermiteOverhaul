@@ -43,6 +43,8 @@ public class BlockEndermiteEgg extends Block implements ITileEntityProvider {
         setBlockTextureName("endermite_overhaul:endermite_egg");
         setBlockName(EndermiteOverhaulUtils.getUnlocalisedName("endermite_egg"));
         setCreativeTab(CreativeTabs.tabMisc);
+        var halfSize = 5 * (1f / 16);
+        this.setBlockBounds(0.5F - halfSize, 0.0F, 0.5F - halfSize, 0.5F + halfSize, 12f / 16, 0.5F + halfSize);
     }
 
     // RENDERING
