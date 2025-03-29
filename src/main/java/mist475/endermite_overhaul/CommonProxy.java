@@ -1,8 +1,10 @@
 package mist475.endermite_overhaul;
 
+import java.io.File;
 import java.util.stream.Collectors;
 
 import net.minecraft.entity.monster.EntityEnderman;
+import net.minecraft.launchwrapper.Launch;
 import net.minecraft.stats.Achievement;
 import net.minecraft.stats.AchievementList;
 import net.minecraft.world.biome.BiomeGenBase;
@@ -17,7 +19,8 @@ import cpw.mods.fml.common.registry.GameRegistry;
 public class CommonProxy {
 
     public void preInit(FMLPreInitializationEvent event) {
-        Config.synchronizeConfiguration(Config.file);
+        Config.synchronizeConfiguration(
+            new File(Launch.minecraftHome, "config" + File.separator + "endermite_overhaul.cfg"));
         ModBlocks.init();
     }
 

@@ -4,7 +4,6 @@ import java.io.File;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
-import net.minecraft.launchwrapper.Launch;
 import net.minecraftforge.common.config.Configuration;
 
 import org.apache.commons.lang3.ArrayUtils;
@@ -14,8 +13,6 @@ import gnu.trove.list.array.TIntArrayList;
 
 public class Config {
 
-    public static File file = new File(
-        Launch.minecraftHome + File.separator + "config" + File.separator + "endermite_overhaul.cfg");
     public static boolean enableEndermiteEggSpawning;
     public static boolean endermiteEggGenerationMode;
     public static TIntList endermiteEggGenerationCustomDimensionIds;

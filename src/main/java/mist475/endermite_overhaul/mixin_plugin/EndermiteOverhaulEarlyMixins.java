@@ -1,9 +1,12 @@
 package mist475.endermite_overhaul.mixin_plugin;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
+import net.minecraft.launchwrapper.Launch;
 
 import com.gtnewhorizon.gtnhmixins.IEarlyMixinLoader;
 
@@ -24,7 +27,8 @@ public class EndermiteOverhaulEarlyMixins implements IFMLLoadingPlugin, IEarlyMi
 
     @Override
     public List<String> getMixins(Set<String> loadedCoreMods) {
-        Config.synchronizeConfiguration(Config.file);
+        Config.synchronizeConfiguration(
+            new File(Launch.minecraftHome, "config" + File.separator + "endermite_overhaul.cfg"));
         var mixins = new ArrayList<String>();
         if (Config.removeVanillaEndermenSpawn) {
             mixins.add("MixinBiomeGenBase");
