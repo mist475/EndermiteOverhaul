@@ -14,6 +14,7 @@ import mist475.endermite_overhaul.TileEntityEndermiteEgg;
 
 public class RenderTileEntityEndermiteEgg extends TileEntitySpecialRenderer {
 
+    public static RenderTileEntityEndermiteEgg INSTANCE;
     private final ResourceLocation texture;
     private final IModelCustom model;
 
@@ -23,13 +24,17 @@ public class RenderTileEntityEndermiteEgg extends TileEntitySpecialRenderer {
             .loadModel(new ResourceLocation(EndermiteOverhaul.MODID, "models/endermite_egg.obj"));
     }
 
-    @Override
-    public void renderTileEntityAt(TileEntity te, double posX, double posY, double posZ, float timeSinceLastTick) {
+    public void renderBase(double posX, double posY, double posZ) {
         Minecraft.getMinecraft().renderEngine.bindTexture(texture);
-        if (!(te instanceof TileEntityEndermiteEgg)) return;
         GL11.glPushMatrix();
         GL11.glTranslated(posX + 0.5, posY, posZ + 0.5);
         model.renderAll();
         GL11.glPopMatrix();
+    }
+
+    @Override
+    public void renderTileEntityAt(TileEntity te, double posX, double posY, double posZ, float timeSinceLastTick) {
+        if (!(te instanceof TileEntityEndermiteEgg)) return;
+        renderBase(posX, posY, posZ);
     }
 }
