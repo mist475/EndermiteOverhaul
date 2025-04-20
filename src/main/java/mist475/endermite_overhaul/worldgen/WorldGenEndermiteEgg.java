@@ -29,24 +29,27 @@ public class WorldGenEndermiteEgg extends WorldGenerator {
          * Whitelist mode: only generate if in list
          * Blacklist mode: only generate if not in list
          */
-        if ((Config.endermiteEggGenerationCustomDimensionIds.contains(world.provider.dimensionId)
-            == Config.endermiteEggGenerationMode) && random.nextInt(Config.endermiteEggSpawnChance) == 0
-            && !(world.getBiomeGenForCoords(chunkCentreX, chunkCentreZ) instanceof BiomeGenMushroomIsland)) {
-            int randomX = chunkCentreX - random.nextInt(8) + random.nextInt(8);
-            int randomZ = chunkCentreZ - random.nextInt(8) + random.nextInt(8);
-            for (int y = Config.endermiteEggLowerGenerationBound; y < Config.endermiteEggUpperGenerationBound; ++y) {
-                if (world.isAirBlock(randomX, y, randomZ)) {
-                    var belowY = y - 1;
-                    var below = world.getBlock(randomX, belowY, randomZ);
-                    // in the end, allow egg spawns regardless
-                    if (below.isOpaqueCube() && below.getMaterial() == Material.rock
-                        && (world.provider.dimensionId == 1
-                            || belowY != world.getTopSolidOrLiquidBlock(randomX, randomZ))) {
-                        world.setBlock(randomX, y, randomZ, this.endermiteEggBlock, 0, 2);
-                        // start from the middle of the chunk
-                        spawnAdditionalEggs(world, random, chunkCentreX, y, chunkCentreZ);
-                        // only add 1 egg group per chunk
-                        break;
+        if (Config.endermiteEggGenerationCustomDimensionIds.contains(world.provider.dimensionId)
+            == Config.endermiteEggGenerationMode) {
+            var setting = Config.getDimSettingOrDefault(world.provider.dimensionId);
+            if (random.nextInt(setting.endermiteEggSpawnChance()) == 0
+                && !(world.getBiomeGenForCoords(chunkCentreX, chunkCentreZ) instanceof BiomeGenMushroomIsland)) {
+                int randomX = chunkCentreX - random.nextInt(8) + random.nextInt(8);
+                int randomZ = chunkCentreZ - random.nextInt(8) + random.nextInt(8);
+                for (int y = setting.minY(); y < setting.maxY(); ++y) {
+                    if (world.isAirBlock(randomX, y, randomZ)) {
+                        var belowY = y - 1;
+                        var below = world.getBlock(randomX, belowY, randomZ);
+                        // in the end, allow egg spawns regardless
+                        if (below.isOpaqueCube() && below.getMaterial() == Material.rock
+                            && (setting.spawnOnSurface()
+                                || belowY != world.getTopSolidOrLiquidBlock(randomX, randomZ))) {
+                            world.setBlock(randomX, y, randomZ, this.endermiteEggBlock, 0, 2);
+                            // start from the middle of the chunk
+                            spawnAdditionalEggs(world, random, chunkCentreX, y, chunkCentreZ);
+                            // only add 1 egg group per chunk
+                            break;
+                        }
                     }
                 }
             }
