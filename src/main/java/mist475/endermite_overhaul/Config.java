@@ -103,7 +103,7 @@ public class Config {
                 configuration.getStringList(
                     "endermiteEggGenerationConfig",
                     "main",
-                    ArrayUtils.toArray("10,0,128,false,-1", "10,0,128,false,0", "10,0,128,true,1"),
+                    ArrayUtils.toArray("25,0,128,false,-1", "5,0,128,false,0", "10,0,128,true,1"),
                     "Per dimension generation settings for endermite egg spawning.\nAny entry not mentioned uses the default config.\nSettings are comma separated. The spawn chance = 1 / n \nformat=endermiteEggSpawnChance,minY,maxY,spawnOnSurface,dimensionId (int,int,int,boolean,int)"))
                 .map(s -> DimSetting.fromStringList(s.split(","), false))
                 .collect(Collectors.toMap(DimSetting::dimensionId, Function.identity())));
@@ -124,7 +124,7 @@ public class Config {
 
     public static DimSetting getDimSettingOrDefault(int dimId) {
         if (endermiteEggGenerationConfig.containsKey(dimId)) {
-            endermiteEggGenerationConfig.get(dimId);
+            return endermiteEggGenerationConfig.get(dimId);
         }
         return defaultEndermiteEggGenerationConfig;
     }
