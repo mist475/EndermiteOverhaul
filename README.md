@@ -28,7 +28,7 @@ Keep in mind Et Futurum Requiem might have dependencies on its own, so make sure
 
 ## Configurability
 - Enable endermite egg generation (if this is disabled you can only get eggs by killing endermites obtained the regular way)
-- Use a whitelist or a blacklist to configure where endermite eggs should spawn
+- Use a whitelist or a blacklist to configure where endermite eggs should spawn and how often
 - Disable vanilla endermen spawns, forcing the player to find endermite eggs in order to go to the End
 - Add an achievement for killing an endermen spawned near an endermite egg between "Into Fire" and "The End?"
 
