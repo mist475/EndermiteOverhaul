@@ -62,17 +62,20 @@ public class WorldGenEndermiteEgg extends WorldGenerator {
      */
     private void spawnAdditionalEggs(World world, Random random, int x, int y, int z) {
         var amountToTry = random.nextInt(Config.maxEndermiteEggGroupSize - 1) + 1;
-        var positions = EndermiteOverhaulUtils.getRandomPositions(x, y, z, 6, 4, 6, random);
+        var positions = EndermiteOverhaulUtils.getEndermiteEggSpawnPositions(random);
         for (var pos : positions) {
+            var i = pos.getLeft() + x;
+            var j = pos.getMiddle() + y;
+            var k = pos.getRight() + z;
             if (amountToTry == 0) {
                 break;
             }
-            if (!world.isAirBlock(pos.getLeft(), pos.getMiddle(), pos.getRight())) {
+            if (!world.isAirBlock(i, j, k)) {
                 continue;
             }
-            var below = world.getBlock(pos.getLeft(), pos.getMiddle() - 1, pos.getRight());
+            var below = world.getBlock(i, j - 1, k);
             if (below.isOpaqueCube() && below.getMaterial() == Material.rock) {
-                world.setBlock(pos.getLeft(), pos.getMiddle(), pos.getRight(), this.endermiteEggBlock, 0, 2);
+                world.setBlock(i, j, k, this.endermiteEggBlock, 0, 2);
                 amountToTry--;
             }
         }

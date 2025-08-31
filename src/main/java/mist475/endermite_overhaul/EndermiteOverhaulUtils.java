@@ -41,15 +41,15 @@ public class EndermiteOverhaulUtils {
     /**
      * Spawn endermen in a 16 block radius
      */
-    public static boolean spawnEndermenCloseToEgg(World world, double posX, double posY, double posZ) {
+    public static void spawnEndermenCloseToEgg(World world, double posX, double posY, double posZ) {
         int x = (int) posX;
         int y = (int) posY;
         int z = (int) posZ;
-        for (var triple : getRandomPositions(x, y, z, 16, 4, 16, world.rand)) {
+        for (var triple : getEndermenSpawnPositions(world.rand)) {
             var enderman = new EntityEnderman(world);
-            var i = triple.getLeft();
-            var j = triple.getMiddle();
-            var k = triple.getRight();
+            var i = triple.getLeft() + x;
+            var j = triple.getMiddle() + y;
+            var k = triple.getRight() + z;
             enderman.setLocationAndAngles(i, j, k, 0.0F, 0.0F);
             if (enderman.getCanSpawnHere()) {
                 world.spawnEntityInWorld(enderman);
@@ -71,19 +71,33 @@ public class EndermiteOverhaulUtils {
 
                 world.playSoundEffect(i, j, k, "mob.endermen.portal", 1.0F, 1.0F);
                 enderman.playSound("mob.endermen.portal", 1.0F, 1.0F);
-                return true;
+                return;
             }
         }
-
-        return false;
     }
 
-    /**
-     * Get all allowed spots for the endermen to spawn and randomise it
-     * There might be a way to optimise this in the future
+    /*
+     * These functions were split up to reduce the number of allocations
      */
-    public static List<Triple<Integer, Integer, Integer>> getRandomPositions(int x, int y, int z, int xRange,
-        int yRange, int zRange, Random random) {
+
+    private static final List<Triple<Integer, Integer, Integer>> endermenSpawnPositions = getPositions(16, 4, 16);
+
+    public static List<Triple<Integer, Integer, Integer>> getEndermenSpawnPositions(Random rand) {
+        var list = new ArrayList<>(endermenSpawnPositions);
+        Collections.shuffle(list, rand);
+        return list;
+    }
+
+    private static final List<Triple<Integer, Integer, Integer>> endermiteEggSpawnPositions = getPositions(6, 4, 6);
+
+    public static List<Triple<Integer, Integer, Integer>> getEndermiteEggSpawnPositions(Random rand) {
+        var list = new ArrayList<>(endermiteEggSpawnPositions);
+        Collections.shuffle(list, rand);
+        return list;
+    }
+
+    public static List<Triple<Integer, Integer, Integer>> getPositions(int xRange, int yRange, int zRange) {
+        int x = 0, y = 0, z = 0;
         var list = new ArrayList<Triple<Integer, Integer, Integer>>();
         for (int j = y + yRange; j > y - yRange; j--) {
             for (int i = x - xRange; i < x + xRange; i++) {
@@ -92,7 +106,6 @@ public class EndermiteOverhaulUtils {
                 }
             }
         }
-        Collections.shuffle(list, random);
         return list;
     }
 
