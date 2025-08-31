@@ -19,7 +19,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class MixinBiomeGenBase {
 
     @Shadow
-    protected List<net.minecraft.world.biome.BiomeGenBase.SpawnListEntry> spawnableMonsterList;
+    public List<net.minecraft.world.biome.BiomeGenBase.SpawnListEntry> spawnableMonsterList;
 
     @Inject(method = "<init>(IZ)V", at = @At(value = "TAIL"))
     private void RemoveEndermanFromSpawnList(int p_i1971_1_, boolean register, CallbackInfo ci) {
