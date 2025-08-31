@@ -15,6 +15,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 /**
  * Disable vanilla enderman spawning to force the player to find endermite eggs (if this mixin is enabled)
  */
+@SuppressWarnings("UnusedMixin")
 @Mixin(BiomeGenBase.class)
 public class MixinBiomeGenBase {
 
