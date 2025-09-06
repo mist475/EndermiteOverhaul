@@ -64,12 +64,12 @@ public class WorldGenEndermiteEgg extends WorldGenerator {
         var amountToTry = random.nextInt(Config.maxEndermiteEggGroupSize - 1) + 1;
         var positions = EndermiteOverhaulUtils.getEndermiteEggSpawnPositions(random);
         for (var pos : positions) {
-            var i = pos.getLeft() + x;
-            var j = pos.getMiddle() + y;
-            var k = pos.getRight() + z;
             if (amountToTry == 0) {
                 break;
             }
+            var i = pos.getLeft() + x;
+            var j = pos.getMiddle() + y;
+            var k = pos.getRight() + z;
             if (!world.isAirBlock(i, j, k)) {
                 continue;
             }
